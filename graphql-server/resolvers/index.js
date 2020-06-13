@@ -9,6 +9,7 @@ const {
   fetchProductsById,
   createNewProduct,
 } = require("../products");
+const { fetchOrders, fetchOrderById } = require("../orders");
 const resolvers = {
   Query: {
     customers: (parent, args, context) => {
@@ -27,8 +28,13 @@ const resolvers = {
       return products;
     },
     product: (_, args) => {
-      const product = fetchProductsById(args.id);
-      return product;
+      return fetchProductsById(args.id);
+    },
+    orders: () => {
+      return fetchOrders();
+    },
+    order: (_, args) => {
+      return fetchOrderById(args.id);
     },
   },
   Mutation: {

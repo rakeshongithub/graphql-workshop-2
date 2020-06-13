@@ -6,8 +6,8 @@ const typeDefs = gql`
     customer(id: ID): Customer
     products: [Product]
     product(id: ID): Product
-    # orders: [Order]
-    # order(id: ID): Order
+    orders: [Order]
+    order(id: ID): Order
   }
 
   type Mutation {
@@ -35,20 +35,33 @@ const typeDefs = gql`
     address: String
   }
 
-  # type Order {
-  #   id: ID!
-  #   customer: Customer
-  #   totalOrderValue: Float
-  #   shippingAddress: String
-  #   paymentMethod: String
-  #   products: [OrderProduct]
-  # }
+  type Order {
+    id: ID!
+    totalOrderValue: Float
+    shippingAddress: String
+    paymentMethod: String
+    customer: Customer
+    products: [OrderProduct]
+  }
 
-  # type OrderProduct {
-  #   product: Product
-  #   quantity: Int
-  #   price: Float
-  # }
+  type OrderProduct {
+    product: Product
+    quantity: Int
+    price: Float
+  }
+
+  input OrderInput {
+    customer: String
+    shippingAddress: String
+    paymentMethod: String
+    products: [OrderProductInput]
+  }
+
+  input OrderProductInput {
+    porductId: String
+    quantity: Int
+    price: Float
+  }
 
   type Product {
     id: ID!
