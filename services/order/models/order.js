@@ -1,25 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const OrderProduct = require('./order-product');
+const OrderProduct = require("./order-product");
 
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
-    customerId: String,
-    totalOrderValue: Float,
-    shippingAddress: String,
-    paymentMethod: String,
-    products: [OrderProduct]
-})
+  customerId: String,
+  totalOrderValue: Number,
+  shippingAddress: String,
+  paymentMethod: String,
+  products: [{ type: Schema.Types.Array, ref: OrderProduct }], //[OrderProduct],
+});
 
-OrderSchema.virtual('id').get(function () {
-    return this._id.toHexString();
-})
+OrderSchema.virtual("id").get(function () {
+  return this._id.toHexString();
+});
 
-OrderSchema.set('toJSON', {
-    virtuals: true
-})
+OrderSchema.set("toJSON", {
+  virtuals: true,
+});
 
-const Order = mongoose.model('orders', OrderSchema);
+const Order = mongoose.model("orders", OrderSchema);
 
 module.exports = Order;
