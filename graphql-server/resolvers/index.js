@@ -1,25 +1,33 @@
-const {registerUser, fetchUsers, login} = require('../users')
+const {
+  registerCustomer,
+  fetchCustomers,
+  fetchCustomerById,
+  login,
+} = require("../customers");
 const resolvers = {
-    Query: {
-        users: (parent, args, context) => {
-            const {me} = context;
-            console.log('---me----',me);
-            
-          const users =   fetchUsers();
-          return users;
-        }
+  Query: {
+    customers: (parent, args, context) => {
+      const { me } = context;
+      console.log("---me----", me);
+
+      const customers = fetchCustomers();
+      return customers;
     },
-    Mutation: {
-        registerUser: async (parent, args) => {
-            const user = await registerUser(args.user);
-            return user;
-        },
-        login: async (parent, args) => {
-            const token = await login(args.user);
-            return token;
-        }
+    customer: (_, args) => {
+      const customer = fetchCustomerById(args.id);
+      return customer;
     },
-    
-}
+  },
+  Mutation: {
+    registerUser: async (parent, args) => {
+      const customer = await registerCustomer(args.customer);
+      return customer;
+    },
+    login: async (parent, args) => {
+      const token = await login(args.customer);
+      return token;
+    },
+  },
+};
 
 module.exports = resolvers;
