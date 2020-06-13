@@ -4,13 +4,16 @@ const typeDefs = gql`
   type Query {
     customers: [Customer]
     customer(id: ID): Customer
-    orders: [Order]
-    order(id: ID): Order
+    products: [Product]
+    product(id: ID): Product
+    # orders: [Order]
+    # order(id: ID): Order
   }
 
   type Mutation {
     registerUser(customer: CustomerInput): Customer
     login(customer: LoginInput): String
+    createNewProduct(product: ProductInput): Product
   }
 
   input CustomerInput {
@@ -32,20 +35,20 @@ const typeDefs = gql`
     address: String
   }
 
-  type Order {
-    id: ID!
-    customer: Customer
-    totalOrderValue: Float
-    shippingAddress: String
-    paymentMethod: String
-    products: [OrderProduct]
-  }
+  # type Order {
+  #   id: ID!
+  #   customer: Customer
+  #   totalOrderValue: Float
+  #   shippingAddress: String
+  #   paymentMethod: String
+  #   products: [OrderProduct]
+  # }
 
-  type OrderProduct {
-    product: Product
-    quantity: Int
-    price: Float
-  }
+  # type OrderProduct {
+  #   product: Product
+  #   quantity: Int
+  #   price: Float
+  # }
 
   type Product {
     id: ID!

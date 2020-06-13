@@ -9,7 +9,7 @@ const OrderSchema = new Schema({
   totalOrderValue: Number,
   shippingAddress: String,
   paymentMethod: String,
-  products: [{ type: Schema.Types.Array, ref: OrderProduct }], //[OrderProduct],
+  products: [{ type: Schema.Types.Array, ref: OrderProduct }],
 });
 
 OrderSchema.virtual("id").get(function () {
