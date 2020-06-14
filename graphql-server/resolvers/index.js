@@ -63,7 +63,11 @@ const resolvers = {
       }
     },
     products: async (parent) => {
-      return parent.products[0];
+      const products = [];
+      parent.products.forEach((item) => {
+        products.push(item[0]);
+      });
+      return products;
     },
   },
   OrderProduct: {

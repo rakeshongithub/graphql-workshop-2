@@ -27,9 +27,13 @@ const fetchOrderById = async (id) => {
 const createNewOrder = async (order) => {
   try {
     const { data } = await instance.post("/orders", { ...order });
+    const products = [];
+    data.products.forEach((item) => {
+      products.push(item[0]);
+    });
     return {
       ...data,
-      products: data.products[0],
+      products: products,
     };
   } catch (e) {
     console.error("---error creating new order--", e);
