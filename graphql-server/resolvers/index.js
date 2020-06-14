@@ -9,7 +9,7 @@ const {
   fetchProductById,
   createNewProduct,
 } = require("../products");
-const { fetchOrders, fetchOrderById } = require("../orders");
+const { fetchOrders, fetchOrderById, createNewOrder } = require("../orders");
 const resolvers = {
   Query: {
     customers: (parent, args, context) => {
@@ -49,6 +49,10 @@ const resolvers = {
     createNewProduct: async (_, args) => {
       const product = await createNewProduct(args.product);
       return product;
+    },
+    createNewOrder: async (_, args) => {
+      const orders = await createNewOrder(args.order);
+      return orders;
     },
   },
   Order: {

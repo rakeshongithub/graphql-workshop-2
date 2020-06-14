@@ -14,6 +14,7 @@ const typeDefs = gql`
     registerUser(customer: CustomerInput): Customer
     login(customer: LoginInput): String
     createNewProduct(product: ProductInput): Product
+    createNewOrder(order: CreateOrderInput): CreateOrder
   }
 
   input CustomerInput {
@@ -33,6 +34,23 @@ const typeDefs = gql`
     name: String
     email: String
     address: String
+  }
+
+  type CreateOrder {
+    id: ID!
+    totalOrderValue: Float
+    shippingAddress: String
+    paymentMethod: String
+    customerId: ID!
+    products: [OrderProductOuput]
+  }
+
+  input CreateOrderInput {
+    totalOrderValue: Float
+    shippingAddress: String
+    paymentMethod: String
+    customerId: ID!
+    products: [OrderProductInput]
   }
 
   type Order {
@@ -58,7 +76,13 @@ const typeDefs = gql`
   }
 
   input OrderProductInput {
-    porductId: String
+    productId: ID!
+    quantity: Int
+    price: Float
+  }
+
+  type OrderProductOuput {
+    productId: ID!
     quantity: Int
     price: Float
   }

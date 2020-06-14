@@ -24,4 +24,17 @@ const fetchOrderById = async (id) => {
   }
 };
 
-module.exports = { fetchOrders, fetchOrderById };
+const createNewOrder = async (order) => {
+  try {
+    const { data } = await instance.post("/orders", { ...order });
+    return {
+      ...data,
+      products: data.products[0],
+    };
+  } catch (e) {
+    console.error("---error creating new order--", e);
+    throw e;
+  }
+};
+
+module.exports = { fetchOrders, fetchOrderById, createNewOrder };
