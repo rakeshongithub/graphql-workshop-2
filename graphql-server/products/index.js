@@ -28,9 +28,9 @@ const fetchProducts = async () => {
   }
 };
 
-const fetchProductsById = async (id) => {
+const fetchProductById = async (id) => {
   try {
-    const { data } = await instance.get(`/products${id}`);
+    const { data } = await instance.get(`/products/${id}`);
     return data;
   } catch (e) {
     console.error("---error fetching specific product--", e);
@@ -38,4 +38,4 @@ const fetchProductsById = async (id) => {
   }
 };
 
-module.exports = { fetchProducts, fetchProductsById, createNewProduct };
+module.exports = { fetchProducts, fetchProductById, createNewProduct };

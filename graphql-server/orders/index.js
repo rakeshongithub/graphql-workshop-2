@@ -16,7 +16,7 @@ const fetchOrders = async () => {
 
 const fetchOrderById = async (id) => {
   try {
-    const { data } = await instance.get(`/orders${id}`);
+    const { data } = await instance.get(`/orders/${id}`);
     return data;
   } catch (e) {
     console.error("---error fetching specific order--", e);
