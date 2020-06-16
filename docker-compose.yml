@@ -1,0 +1,60 @@
+version: "3"
+services:
+  mongo_db_service:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+
+  graphql_service:
+    build: ./graphql-server
+    ports:
+      - "3200:3100"
+    environment:
+      - GRAPHQL_SERVICE_PORT=3100
+      - JWT_SECRET=tekmentors
+      - CUSTOMER_SERVICE_URL=http://customer_server:3001/
+      - ORDER_SERVICE_URL=http://order_server:3002/
+      - PRODUCT_SERVICE_URL=http://product_server:3003/
+    links:
+      - mongo_db_service
+      - product_server
+      - order_server
+
+  customer_server:
+    build:
+      dockerfile: Dockerfile
+      context: ./services/customer
+    ports:
+      - "3001:3001"
+    environment:
+      - CUSTOMER_SERVICE_PORT=3001
+      - CUSTOMER_DB_URL=mongodb://mongo_db_service:27017/workshop-customer-db
+      - JWT_SECRET=tekmentors
+    links:
+      - mongo_db_service
+
+  product_server:
+    build:
+      dockerfile: Dockerfile
+      context: ./services/product
+    ports:
+      - "3003:3003"
+    environment:
+      - PRODUCT_SERVICE_PORT=3003
+      - PRODUCT_DB_URL=mongodb://mongo_db_service:27017/workshop-order-db
+      - JWT_SECRET=tekmentors
+    links:
+      - mongo_db_service
+
+  order_server:
+    build:
+      dockerfile: Dockerfile
+      context: ./services/order
+    ports:
+      - "3002:3002"
+    environment:
+      - ORDER_SERVICE_PORT=3002
+      - ORDER_DB_URL=mongodb://mongo_db_service:27017/workshop-order-db
+      - JWT_SECRET=tekmentors
+    links:
+      - mongo_db_service
